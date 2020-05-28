@@ -7,20 +7,33 @@ public class Game {
 	private int maxSize = Integer.MAX_VALUE;
 	private int currentGameTotal = 0;
 	private final int targetNumber = 21;
-	private int cpuDifficulty = 6; // How far ahead the CPU looks ahead. >=5 CPU always wins
+	private int cpuDifficulty = 1; // How far ahead the CPU looks ahead. >=5 CPU always wins
 	private int currentPlayer = 1; // 1 = Human, -1 = CPU. Changing this here does nothing.
 	Scanner scanner;
 	
-	public Game() {
-		this.runGame();
+	private Game(int difficulty) {
+		setDifficulty(difficulty);
+		runGame();
 	}
 	
+	private void setDifficulty(int difficulty) {
+		if(difficulty >= 5) {
+			this.cpuDifficulty = 5;
+		}
+		else if(cpuDifficulty <= 1) {
+			this.cpuDifficulty = 1;
+		} else {
+			this.cpuDifficulty = difficulty;
+		}
+	}
+	
+	public int getDifficulty() {
+		return cpuDifficulty;
+	}
+
 	private void runGame() {
 		
 		int userInput = 0;
-		System.out.println("Welcome to 21.");
-		System.out.println("Players take turns counting upwards in a series of 1-4 until 21."); 
-		System.out.println("If 21 is in your series of numbers, you lose!");
 		
 		while(currentGameTotal < targetNumber) {
 			
@@ -64,7 +77,7 @@ public class Game {
 				System.out.println("invalid number. try again.");
 			}
 		}
-		scanner.close();
+//		scanner.close();
 	}
 	
 	private int minimax(Node node, int depth, int playerNumber) {
@@ -135,7 +148,21 @@ public class Game {
 			return 0;
 		}
 	}
+	
 	public static void main(String[] args) {
-		Game game = new Game();
+		
+		System.out.println("Welcome to 21.");
+		System.out.println("Players take turns counting upwards in a series of 1-4 until 21 is reached."); 
+		System.out.println("If 21 is in your series of numbers, you lose!");
+		
+		System.out.println("Select a CPU Difficulty (Very Easy = 1, Easy = 2, Normal = 3, Hard = 4, Impossible = 5):");
+		
+		int userDifficultyChoice = 0;
+		Scanner scanner = new Scanner(System.in);
+		userDifficultyChoice = scanner.nextInt();
+		
+		Game game = new Game(userDifficultyChoice);
+		
+		game.runGame();
 	}
 }

@@ -11,6 +11,6 @@ P1: 13, 14\
 P2: 15, 16, 17\
 P1: 18, 19, 20\
 P2: 21\
-P1 wins!\
+P1 wins!
 
 This project was originally supposed to demonstrate the minimax algorithm, which is why you can only play against the computer for now. The difficulty for the computer player is changed by changing the search depth of the minimax algorithm. Setting the search depth to anything higher than 5 has the same effect as setting the search depth to 5.
